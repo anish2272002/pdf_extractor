@@ -38,7 +38,7 @@ Built with:
 
 ## 📦 Installation
 
-### 1. Backend Setup
+### Backend Setup
 
 ```bash
 cd backend/
@@ -52,7 +52,7 @@ curl -X POST http://localhost:8000/api/process/ \
   --output extracted.pdf
 ```
 
-### 1. Frontend Setup
+### Frontend Setup
 
 ```bash
 cd frontend/

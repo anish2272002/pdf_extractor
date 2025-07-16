@@ -4,5 +4,5 @@ from .views import processView
 app_name="pdfprocessor"
 
 urlpatterns = [
-    path('process',processView.as_view(),name="process"),
+    path('process',processView.as_view(),name="process_pdf"),
 ]
