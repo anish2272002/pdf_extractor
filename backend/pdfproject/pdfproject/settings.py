@@ -43,9 +43,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'pdfprocessor',
     'corsheaders',
+    'django_prometheus',
 ]
 
 MIDDLEWARE = [
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -54,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
 ROOT_URLCONF = 'pdfproject.urls'
@@ -132,3 +135,6 @@ MEDIA_ROOT = Path(BASE_DIR,'mediafiles')
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+KAFKA_BOOTSTRAP_SERVERS = 'kafka:9092'
+KAFKA_TOPIC = 'pdf_events'

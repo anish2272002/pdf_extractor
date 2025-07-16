@@ -37,7 +37,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: anish2272002/pdfcicd:backend1.0
+          image: anish2272002/pdfcicd:backend1.4
           ports:
             - containerPort: 8000
           volumeMounts:

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: event-consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: event-consumer
+  template:
+    metadata:
+      labels:
+        app: event-consumer
+    spec:
+      containers:
+        - name: event-consumer
+          image: anish2272002/pdfcicd:event-consumer0.1
+          ports:
+            - containerPort: 8001
+          env:
+            - name: KAFKA_BROKER
+              value: kafka:9092
+            - name: KAFKA_TOPIC
+              value: pdf_events
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: event-consumer
+spec:
+  selector:
+    app: event-consumer
+  ports:
+    - port: 8001
+      targetPort: 8001
+  type: ClusterIP

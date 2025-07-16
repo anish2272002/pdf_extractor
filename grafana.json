@@ -1,0 +1,121 @@
+{
+  "title": "PDF Monitoring Dashboard",
+  "timezone": "browser",
+  "schemaVersion": 37,
+  "version": 1,
+  "refresh": "5s",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "PDFs Uploaded",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "sum(pdf_uploaded_total)",
+          "legendFormat": "PDFs Uploaded",
+          "refId": "A"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 0, "w": 6, "h": 4 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none"
+        }
+      }
+    },
+    {
+      "type": "stat",
+      "title": "PDFs Downloaded",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "sum(pdf_downloaded_total)",
+          "legendFormat": "PDFs Downloaded",
+          "refId": "A"
+        }
+      ],
+      "gridPos": { "x": 6, "y": 0, "w": 6, "h": 4 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none"
+        }
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "CPU Usage",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "avg(100 - (rate(node_cpu_seconds_total{mode='idle'}[5m]) * 100))",
+          "legendFormat": "CPU Usage",
+          "refId": "A"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 4, "w": 12, "h": 6 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 2
+        }
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Memory Usage",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "avg(100 * (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)))",
+          "legendFormat": "Memory Usage",
+          "refId": "A"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 10, "w": 12, "h": 6 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 2
+        }
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Backend Latency",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "rate(django_http_requests_latency_seconds_by_view_method_sum[5m]) / rate(django_http_requests_latency_seconds_by_view_method_count[5m])",
+          "legendFormat": "Backend Avg Latency",
+          "refId": "A"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 16, "w": 12, "h": 6 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms",
+          "decimals": 2
+        }
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Frontend Latency (GC Duration)",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "rate(nodejs_gc_duration_seconds_sum[5m]) / rate(nodejs_gc_duration_seconds_count[5m])",
+          "legendFormat": "Frontend Avg GC Latency",
+          "refId": "A"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 22, "w": 12, "h": 6 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms",
+          "decimals": 2
+        }
+      }
+    }
+  ]
+}

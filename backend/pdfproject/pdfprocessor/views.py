@@ -10,6 +10,8 @@ from rest_framework import status
 import json
 from pypdf import PdfReader, PdfWriter
 from io import BytesIO
+from datetime import datetime
+from .kafka_producer import send_kafka_event
 
 class processView(APIView):
     parser_classes=(MultiPartParser, FormParser)
@@ -30,6 +32,14 @@ class processView(APIView):
             assert isinstance(pages,list)
         except Exception:
             return Response({"error":"Invalid pages data"}, status=status.HTTP_400_BAD_REQUEST)
+
+        send_kafka_event(
+            event='pdf_uploaded',
+            metadata={
+                'file_name': str(file_obj),
+                'timestamp': datetime.now().isoformat(),
+            }
+        )
 
         try:
             reader=PdfReader(file_obj)

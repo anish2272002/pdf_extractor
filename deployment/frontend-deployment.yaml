@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: anish2272002/pdfcicd:frontend1.3
+          image: anish2272002/pdfcicd:frontend1.6
           ports:
             - containerPort: 3000
 ---
